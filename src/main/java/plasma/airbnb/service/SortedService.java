@@ -84,7 +84,7 @@ public class SortedService {
                 repository.search(title, city, region);
             }
         } catch (Exception e) {
-            log.error("Error: ", e.getMessage());
+            log.error("Error: {}", e.getMessage());
             throw new RuntimeException(e);
         }
         return repository.findAll();
@@ -97,7 +97,7 @@ public class SortedService {
                 repository.region(region);
             }
         } catch (Exception e) {
-            log.error("Error: ", e.getMessage());
+            log.error("Error: {}", e.getMessage());
             throw new RuntimeException(e);
         }
         return repository.findAll();

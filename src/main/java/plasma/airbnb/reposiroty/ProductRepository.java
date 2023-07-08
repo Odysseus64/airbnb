@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import plasma.airbnb.enums.Region;
 import plasma.airbnb.enums.Type;
 import plasma.airbnb.model.Product;
-
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
+@Transactional
 public interface ProductRepository extends JpaRepository<Product, Long> {
+
     @Query("select s from Product s where s.title = :title ")
     List<Product> findByTitle(@Param("title") String title);
 

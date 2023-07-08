@@ -67,7 +67,7 @@ public class FeedBackService implements FeedBackMethods {
     @Override
     public FeedBack likeFeedBack(Long id) {
         FeedBack feedback = feedBackRepository.findById(id).orElseThrow(() -> new RuntimeException("Not found FeedBack"));
-        feedback.setLike(feedback.getLike() + 1);
+        feedback.setLikeCount(feedback.getLikeCount() + 1);
         return feedBackRepository.save(feedback);
     }
 

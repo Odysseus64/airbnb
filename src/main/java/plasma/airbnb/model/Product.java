@@ -3,9 +3,9 @@ package plasma.airbnb.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import plasma.airbnb.enums.DecisionStatus;
 import plasma.airbnb.enums.Region;
 import plasma.airbnb.enums.Type;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -28,6 +28,9 @@ public class Product {
 
     @Column(name = "description")
     private String description;
+
+    @Enumerated(EnumType.STRING)
+    private DecisionStatus decisionStatus;
 
     @Column(name = "town_province")
     private String townProvince;
@@ -53,4 +56,7 @@ public class Product {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
     private List<FeedBack> feedBacks = new ArrayList<>();
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "product")
+    private Application application;
 }

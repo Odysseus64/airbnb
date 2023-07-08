@@ -3,41 +3,40 @@ package plasma;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import plasma.airbnb.enums.Region;
-import plasma.airbnb.enums.Type;
-import plasma.airbnb.model.Product;
-import plasma.airbnb.reposiroty.ProductRepository;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.RestController;
+import plasma.airbnb.enums.Role;
+import plasma.airbnb.model.User;
+import plasma.airbnb.reposiroty.UserRepository;
 import javax.annotation.PostConstruct;
 
+@RestController
 @SpringBootApplication
 @RequiredArgsConstructor
 public class AirbnbApplication {
-    private final ProductRepository productRepository;
+
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public static void main(String[] args) {
         SpringApplication.run(AirbnbApplication.class, args);
     }
 
     @PostConstruct
-    public void init (){
-        Product product1= new Product();
-        product1.setTitle("omat s");
-        product1.setRating(5);
-        product1.setType(Type.APARTMENT);
-        product1.setRegion(Region.BATKEN);
-        Product product2 = new Product();
-        product2.setTitle("ITKG");
-        product2.setRating(2);
-        product1.setRegion(Region.OSH);
-        product2.setType(Type.APARTMENT);
-        Product product3= new Product();
-        product3.setTitle("stroy");
-        product3.setRating(5);
-        product1.setRegion(Region.BISHKEK);
-        product3.setType(Type.HOUSE);
-        productRepository.save(product1);
-        productRepository.save(product2);
-        productRepository.save(product3);
+    public void init() {
+        User admin = new User();
+        admin.setName("Marlen");
+        admin.setEmail("mouflon@gmail.com");
+        admin.setPassword(passwordEncoder.encode("mario"));
+        admin.setRole(Role.ADMIN);
+
+        User user = new User();
+        user.setName("Somebody");
+        user.setEmail("user@gmail.com");
+        user.setPassword(passwordEncoder.encode("userO"));
+        user.setRole(Role.USER);
+
+        userRepository.save(admin);
+        userRepository.save(user);
     }
 }
